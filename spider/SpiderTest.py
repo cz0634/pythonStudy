@@ -4,6 +4,14 @@ def getHtml(url):
     response = request.urlopen(url)
     return response.read()
 
+def getResponseInfo(url):
+    info = {}
+    response = request.urlopen(url)
+    info['header'] = response.getheaders()
+    info['statusCode'] = response.status
+    info['reason'] = response.reason
+    return info
+
 def saveHtml(path, content):
     htmlFile = open(path, 'w')
     htmlFile.write(content)
@@ -16,6 +24,9 @@ if len(checkurl) <= 0:
 
 url = 'https://mp.weixinbridge.com/mp/wapredirect?url=' + checkurl
 html = getHtml(url)
+# info = getResponseInfo(url)
+# print(info)
+# exit()
 html = html.decode('utf-8')
 
 if len(html) <= 0:
